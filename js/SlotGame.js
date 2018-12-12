@@ -1,4 +1,5 @@
 /*
+
 Zodra je de game opent, krijg je een console log
 1 = [1][2][3]
 
@@ -8,6 +9,7 @@ Zodra je op play drukt en de game heeft een nieuwe console log
 3 = [1][2][3]
 4 = [0][1][2]
 5 = [4][5][6]
+
  */
 
 PIXI.loader
