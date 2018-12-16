@@ -3,13 +3,6 @@
 Zodra je de game opent, krijg je een console log
 1 = [1][2][3]
 
-Zodra je op play drukt en de game heeft een nieuwe console log
-1 = [1][2][3]
-2 = [1][2][3]
-3 = [1][2][3]
-4 = [0][1][2]
-5 = [4][5][6]
-
  */
 
 PIXI.loader
@@ -19,7 +12,6 @@ PIXI.loader
     .add("required/assets/helmlok.png", "required/assets/helmlok.png")
     .add("required/assets/skully.png", "required/assets/skully.png")
     .load(onAssetsLoaded);
-
 // de lengte tussen de slots
 // De size van de slots
 var REEL_WIDTH = 240;
@@ -34,7 +26,6 @@ function onAssetsLoaded() {
         PIXI.Texture.fromImage("required/assets/helmlok.png"),
         PIXI.Texture.fromImage("required/assets/skully.png")
     ];
-
 
     // Build the reels
     var reels = [];
@@ -57,7 +48,7 @@ function onAssetsLoaded() {
         rc.filters = [reel.blur];
 
         // Hoeveel textures die moet bouwen en spinnen, Scale the symbol to fit symbol area.
-        for (var j = 0; j < 8; j++) {
+        for (var j = 0; j < 5; j++) {
             var symbol = new PIXI.Sprite(slotTextures[Math.floor(Math.random() * slotTextures.length)]);
             symbol.y = j * SYMBOL_SIZE;
             symbol.scale.x = symbol.scale.y = Math.min(SYMBOL_SIZE / symbol.width, SYMBOL_SIZE / symbol.height);
@@ -84,6 +75,18 @@ function onAssetsLoaded() {
     app.stage.addChild(bottom);
     app.stage.addChild(top);
 
+    // Buttons
+    // 3 Lines Button
+    var ThreeLinesButton = new PIXI.Sprite.fromImage("required/assets/3lines.png");
+    ThreeLinesButton.interactive = true;
+    ThreeLinesButton.buttonMode = true;
+    ThreeLinesButton.x = Math.round((bottom.width - ThreeLinesButton.width) / 2 + 210);
+    ThreeLinesButton.y = app.screen.height - margin + Math.round((margin - ThreeLinesButton.height) / 4);
+    app.stage.addChild(ThreeLinesButton);
+    ThreeLinesButton.addListener("pointerdown", function () {
+        threeLines();
+    });
+
     // Play Button
     var buttonPlay = new PIXI.Sprite.fromImage("required/assets/buttonPlay.png");
     buttonPlay.interactive = true;
@@ -106,11 +109,12 @@ function onAssetsLoaded() {
         for (var i = 0; i < reels.length; i++) {
             var r = reels[i];
             var extra = Math.floor(Math.random() * 3);
-            tweenTo(r, "position", r.position + 10 + i * 5 + extra, 2500 + i * 600 + extra * 600, backout(0.6), null, i == reels.length - 1 ? reelsComplete : null);
-            console.log("Reels " + reels.length);
-            console.log(r);
+            tweenTo(r, "position", r.position + 10 + i * 5 + extra, 2000 + i * 600 + extra * 600, backout(0.5), null, i == reels.length - 1 ? reelsComplete : null);
         }
+        console.log(reels[0]);
+        console.log(reels[1]);
     }
+
 
     //Reels done handler.
     function reelsComplete() {
@@ -118,7 +122,7 @@ function onAssetsLoaded() {
         console.log("Reels Completed");
     }
 
-    // Listen for animate update.
+// Listen for animate update.
     app.ticker.add(function (delta) {
         //Update the slots.
         for (var i = 0; i < reels.length; i++) {
@@ -143,6 +147,11 @@ function onAssetsLoaded() {
             }
         }
     });
+
+    function threeLines() {
+        console.log("3Lines Activated")
+
+    }
 }
 
 //Very simple tweening utility function. This should be replaced with a proper tweening library in a real product.
@@ -199,5 +208,4 @@ backout = function (amount) {
         return (--t * t * ((amount + 1) * t + amount) + 1);
     };
 };
-
 
