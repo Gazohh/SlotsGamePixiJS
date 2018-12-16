@@ -48,7 +48,7 @@ function onAssetsLoaded() {
         rc.filters = [reel.blur];
 
         // Hoeveel textures die moet bouwen en spinnen, Scale the symbol to fit symbol area.
-        for (var j = 0; j < 5; j++) {
+        for (var j = 0; j < 4; j++) {
             var symbol = new PIXI.Sprite(slotTextures[Math.floor(Math.random() * slotTextures.length)]);
             symbol.y = j * SYMBOL_SIZE;
             symbol.scale.x = symbol.scale.y = Math.min(SYMBOL_SIZE / symbol.width, SYMBOL_SIZE / symbol.height);
@@ -111,8 +111,8 @@ function onAssetsLoaded() {
             var extra = Math.floor(Math.random() * 3);
             tweenTo(r, "position", r.position + 10 + i * 5 + extra, 2000 + i * 600 + extra * 600, backout(0.5), null, i == reels.length - 1 ? reelsComplete : null);
         }
-        console.log(reels[0]);
-        console.log(reels[1]);
+        console.log("--");
+        console.log(tweening);
     }
 
 
@@ -150,7 +150,6 @@ function onAssetsLoaded() {
 
     function threeLines() {
         console.log("3Lines Activated")
-
     }
 }
 
