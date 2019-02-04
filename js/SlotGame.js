@@ -46,6 +46,7 @@ function onAssetsLoaded() {
         reel.blur.blurX = 0;
         reel.blur.blurY = 0;
         rc.filters = [reel.blur];
+        var nieuweSprites = Object.values(reel);
 
         // Hoeveel textures die moet bouwen en spinnen, Scale the symbol to fit symbol area.
         for (var j = 0; j < 4; j++) {
@@ -57,7 +58,7 @@ function onAssetsLoaded() {
             rc.addChild(symbol);
         }
         reels.push(reel);
-        console.log(symbol);
+        console.log(nieuweSprites[1]);
     }
     app.stage.addChild(reelContainer);
 
@@ -105,14 +106,18 @@ function onAssetsLoaded() {
     function startPlay() {
         if (running) return;
         running = true;
-
+        console.log("--");
         for (var i = 0; i < reels.length; i++) {
             var r = reels[i];
             var extra = Math.floor(Math.random() * 3);
             tweenTo(r, "position", r.position + 10 + i * 5 + extra, 2000 + i * 600 + extra * 600, backout(0.5), null, i == reels.length - 1 ? reelsComplete : null);
+            // console.log(reel);
+            var nieuweSprites = Object.values(reel);
+            console.log(nieuweSprites[1]);
         }
-        console.log("--");
-        console.log(tweening);
+
+        // console.log(tweening);
+
     }
 
 
